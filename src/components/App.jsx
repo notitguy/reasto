@@ -1,26 +1,42 @@
-import { Fragment } from "react/jsx-runtime";
+function Button({ handleClick, children }) {
 
-const poem = {
-  lines: [
-    'I write, erase, rewrite',
-    'Erase again, and then',
-    'A poppy blooms.'
-  ]
-};
-
-export default function Poem() {
   return (
-    <article>
-      {poem.lines.map((line, index) =>
-        <Fragment key={index}>
-          {index > 0 && <hr />}
-          <p key={index}>
-            {line}
-          </p>
-        </Fragment>
-      )}
-    </article>
+    <button onClick={handleClick}>
+      {children}
+    </button>
   );
 }
 
-// https://react.dev/learn/keeping-components-pure
+function PlayButton({ movieName }) {
+  function alertMoviename() {
+    alert(`Playing ${movieName}!`);
+  }
+
+  return (
+    <Button handleClick={alertMoviename} >
+      Play "{movieName}"
+    </Button>
+  );
+}
+
+function UploadButton({ message }) {
+  // function alertUpload() {
+  //   alert(message);
+  // }
+  return (
+    <Button handleClick={() => alert(message)} >
+      Upload image
+    </Button>
+  );
+}
+
+export default function Toolbar() {
+  return (
+    <div>
+      <PlayButton movieName="Kiki's Delivery Service" />
+      <UploadButton message="Uploading!" />
+    </div>
+  );
+}
+
+// https://react.dev/learn/responding-to-events#event-propagation

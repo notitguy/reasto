@@ -1,4 +1,4 @@
-### Learning React⚛️ within Astro🚀
+## Learning React⚛️ within Astro🚀
 
 **Plan**
 

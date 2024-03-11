@@ -1,5 +1,5 @@
 ---
-import Gallery from "../components/App";
+import App from "../components/App";
 ---
 
 <html lang="en">
@@ -17,6 +17,15 @@ import Gallery from "../components/App";
 	</head>
 	<body>
 		<h1>Astro</h1>
-		<Gallery />
+		<App client:idle />
 	</body>
 </html>
+
+<style>
+	.day {
+		color: blue;
+	}
+	.night {
+		color: crimson;
+	}
+</style>
