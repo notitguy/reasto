@@ -1,42 +1,39 @@
-function Button({ handleClick, children }) {
+import { useState } from "react";
+import { sculptureList } from "./data";
 
-  return (
-    <button onClick={handleClick}>
-      {children}
-    </button>
-  );
-}
+export default function Gallery() {
+  // let index = 0;
+  const [index, setIndex] = useState(0);
+  const [showMore, setShowMore] = useState(false);
 
-function PlayButton({ movieName }) {
-  function alertMoviename() {
-    alert(`Playing ${movieName}!`);
+  function handleClick() {
+    setIndex(index + 1);
+  }
+  function handleClickPrev() {
+    setIndex(index - 1);
+  }
+  function handleMoreClick() {
+    setShowMore(!showMore);
   }
 
+  let sculpture = sculptureList[index];
+
   return (
-    <Button handleClick={alertMoviename} >
-      Play "{movieName}"
-    </Button>
+    <>
+      <button onClick={handleClickPrev}>Previous</button>
+      <button onClick={handleClick}>Next</button>
+      <h2>
+        <i>{sculpture.name}</i> by {sculpture.artist}
+      </h2>
+      <h3>({index + 1} of {sculptureList.length})</h3>
+      <button onClick={handleMoreClick}>
+        {showMore ? 'Hide' : 'Show'} details
+      </button>
+      {showMore && <p>{sculpture.description}</p>}
+      <hr />
+      <img src={sculpture.url} alt="" />
+    </>
   );
 }
 
-function UploadButton({ message }) {
-  // function alertUpload() {
-  //   alert(message);
-  // }
-  return (
-    <Button handleClick={() => alert(message)} >
-      Upload image
-    </Button>
-  );
-}
-
-export default function Toolbar() {
-  return (
-    <div>
-      <PlayButton movieName="Kiki's Delivery Service" />
-      <UploadButton message="Uploading!" />
-    </div>
-  );
-}
-
-// https://react.dev/learn/responding-to-events#event-propagation
+// https://react.dev/learn/state-a-components-memory#state-is-isolated-and-private
