@@ -1,39 +1,25 @@
-import { useState } from "react";
-import { sculptureList } from "./data";
+import { useState } from 'react';
 
-export default function Gallery() {
-  // let index = 0;
-  const [index, setIndex] = useState(0);
-  const [showMore, setShowMore] = useState(false);
+export default function TrafficLight() {
+  const [walk, setWalk] = useState(true);
 
   function handleClick() {
-    setIndex(index + 1);
+    setWalk(!walk);
+    alert(walk ? 'Stop is next' : 'Walk is next');
   }
-  function handleClickPrev() {
-    setIndex(index - 1);
-  }
-  function handleMoreClick() {
-    setShowMore(!showMore);
-  }
-
-  let sculpture = sculptureList[index];
 
   return (
     <>
-      <button onClick={handleClickPrev}>Previous</button>
-      <button onClick={handleClick}>Next</button>
-      <h2>
-        <i>{sculpture.name}</i> by {sculpture.artist}
-      </h2>
-      <h3>({index + 1} of {sculptureList.length})</h3>
-      <button onClick={handleMoreClick}>
-        {showMore ? 'Hide' : 'Show'} details
+      <button onClick={handleClick} >
+        Change to {walk ? 'Stop' : 'Walk'}
       </button>
-      {showMore && <p>{sculpture.description}</p>}
-      <hr />
-      <img src={sculpture.url} alt="" />
+      <h3 style={{
+        color: walk ? 'darkgreen' : 'darkred'
+      }}>
+        {walk ? 'Walk' : 'Stop'}
+      </h3>
     </>
   );
 }
 
-// https://react.dev/learn/state-a-components-memory#state-is-isolated-and-private
+// https://react.dev/learn/queueing-a-series-of-state-updates
