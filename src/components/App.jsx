@@ -1,25 +1,35 @@
 import { useState } from 'react';
 
-export default function TrafficLight() {
-  const [walk, setWalk] = useState(true);
+let initialArtists = [
+  { id: 0, name: 'Marta Colvin Andrade' },
+  { id: 1, name: 'Lamidi Olonade Fakeye'},
+  { id: 2, name: 'Louise Nevelson'},
+];
 
-  function handleClick() {
-    setWalk(!walk);
-    alert(walk ? 'Stop is next' : 'Walk is next');
+export default function List() {
+  const [artists, setArtists] = useState(initialArtists);
+
+  function handleArtistFilter(artistId) {
+    setArtists(
+      artists.filter(a =>a.id != artistId)
+    );
   }
 
   return (
     <>
-      <button onClick={handleClick} >
-        Change to {walk ? 'Stop' : 'Walk'}
-      </button>
-      <h3 style={{
-        color: walk ? 'darkgreen' : 'darkred'
-      }}>
-        {walk ? 'Walk' : 'Stop'}
-      </h3>
+      <h3>Inspiring sculptors:</h3>
+      <ul>
+        {artists.map(artist => (
+          <li key={artist.id}>
+            {artist.name}{' '}
+            <button onClick={() => {handleArtistFilter(artist.id)}} >
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }
 
-// https://react.dev/learn/queueing-a-series-of-state-updates
+// https://react.dev/learn/updating-arrays-in-state#transforming-an-array
